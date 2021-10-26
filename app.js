@@ -25,15 +25,15 @@ const fakeRequestPromise = (url) => {
 
 fakeRequestCallback('books.com/page1', 
     function(response){
-        console.log("IT WORKED!!!");
+        console.log("IT WORKED(page1)!!!");
         console.log(response);
         fakeRequestCallback('books.com/page2', 
             function(response){
-                console.log("IT WORKED AGAIN!!!");
+                console.log("IT WORKED AGAIN(page2)!!!");
                 console.log(response);
                 fakeRequestCallback('books.com/page3', 
         function(response){
-         console.log("IT WORKED AGAIN(3rd request)!!!");
+         console.log("IT WORKED AGAIN(page3)!!!");
             console.log(response);
     
         }, function(err){
@@ -45,20 +45,27 @@ fakeRequestCallback('books.com/page1',
         console.log(err);
     })
     }, function(err){
-    console.log("ERROR!!!")
+    console.log("ERROR(1st request)!!!")
     console.log(err);
 })
 
-fakeRequestPromise('starbucks.com/api/cappuccino')
+fakeRequestPromise('starbucks.com/api/cappuccino/page1')
 .then(() => {
-    console.log("PROMISE FULFILLED!!!");
-    fakeRequestPromise('starbucks.com/api/cappuccino').then(() => 
+    console.log("PROMISE FULFILLED(page1)!!!");
+    fakeRequestPromise('starbucks.com/api/cappuccino/page2').then(() => 
     {
-        console.log("PROMISE FULFILLED(2)!!!");
-        }).catch(() => {
-        console.log("PROMISE REJECTED!!!");
+        console.log("PROMISE FULFILLED(page2)!!!");
+        fakeRequestPromise('starbucks.com/api/cappuccino/page3').then(() => 
+    {
+        console.log("PROMISE FULFILLED(page3)!!!");
+        
+    }).catch(() => {
+        console.log("PROMISE REJECTED(page3)!!!");
+    })
+    }).catch(() => {
+        console.log("PROMISE REJECTED(page2)!!!");
     })
 })
 .catch(() => {
-    console.log("PROMISE REJECTED!!!");
+    console.log("PROMISE REJECTED(page1)!!!");
 })
