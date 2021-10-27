@@ -49,23 +49,44 @@ fakeRequestCallback('books.com/page1',
     console.log(err);
 })
 
+// fakeRequestPromise('starbucks.com/api/cappuccino/page1')
+// .then(() => {
+//             console.log("PROMISE FULFILLED(page1)!!!");
+//             fakeRequestPromise('starbucks.com/api/cappuccino/page2').then(() => 
+//             {
+//                 console.log("PROMISE FULFILLED(page2)!!!");
+//                 fakeRequestPromise('starbucks.com/api/cappuccino/page3').then(() => 
+//                 {
+//                     console.log("PROMISE FULFILLED(page3)!!!");
+//                 }).catch(() => {
+//                 console.log("PROMISE REJECTED(page3)!!!");
+//                 })
+//             }).catch(() => {
+//             console.log("PROMISE REJECTED(page2)!!!");
+//         })
+//     })
+// .catch(() => {
+//     console.log("PROMISE REJECTED(page1)!!!");
+// })
+
+// ********************************* MAGIC OF PROMISES ************************************
+
 fakeRequestPromise('starbucks.com/api/cappuccino/page1')
-.then(() => {
-    console.log("PROMISE FULFILLED(page1)!!!");
-    fakeRequestPromise('starbucks.com/api/cappuccino/page2').then(() => 
-    {
-        console.log("PROMISE FULFILLED(page2)!!!");
-        fakeRequestPromise('starbucks.com/api/cappuccino/page3').then(() => 
-    {
-        console.log("PROMISE FULFILLED(page3)!!!");
-        
-    }).catch(() => {
-        console.log("PROMISE REJECTED(page3)!!!");
-    })
-    }).catch(() => {
-        console.log("PROMISE REJECTED(page2)!!!");
-    })
+.then((data) => {
+    console.log("IT WORKED!!! (page1)");
+    console.log(data);
+    return fakeRequestPromise('starbucks.com/api/cappuccino/page2')
 })
-.catch(() => {
-    console.log("PROMISE REJECTED(page1)!!!");
+.then((data) => {
+    console.log("IT WORKED!!! (page2)");
+    console.log(data);
+    return fakeRequestPromise('starbucks.com/api/cappuccino/page3')
+})
+.then((data) => {
+    console.log("IT WORKED!!! (page3)");
+    console.log(data);
+})
+.catch((err) => {
+console.log("OH NO A REQUEST FAILED!");
+console.log(err);
 })
